@@ -6,9 +6,13 @@ variable "instance_type" {
 variable "AWS_ACCESS_KEY_ID" {
   description = "AWS Access Key ID for authenticating with AWS"
   type        = string
+  default     = ""
+  sensitive   = true
 }
 
 variable "AWS_SECRET_ACCESS_KEY" {
   description = "AWS Secret Access Key for authenticating with AWS"
   type        = string
+  default     = ""
+  sensitive   = true
 }
