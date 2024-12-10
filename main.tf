@@ -62,7 +62,6 @@ module "alb" {
       protocol = "HTTP"
        }
    }
-  }
 
   target_groups = {
     ex-instance = {
