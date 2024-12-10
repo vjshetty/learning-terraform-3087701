@@ -61,6 +61,9 @@ module "alb" {
       port     = 80
       protocol = "HTTP"
        }
+      forward = {
+        target_group_key = "ex-instance"
+      }
    }
 
   target_groups = {
