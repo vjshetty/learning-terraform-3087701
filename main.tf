@@ -48,46 +48,6 @@ resource "aws_instance" "blog" {
   }
 }
 
-module "alb" {
-  source = "terraform-aws-modules/alb/aws"
-
-  name             = "blog-alb"
-  vpc_id           = module.blog_vpc.vpc_id
-  subnets          = module.blog_vpc.public_subnets
-  security_groups  = [module.blog_sg.security_group_id]
-
-  listeners = {
-    http = {
-      port     = 80
-      protocol = "HTTP"
-      default_action = {
-        type             = "forward"
-        target_group_key = "default_target"
-       }
-     }
-   }
-
-  target_groups = {
-    default_target = {
-      name_prefix      = "blog-"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "instance"
-       targets = [
-        {
-          target_id = aws_instance.blog.id
-          port      = 80
-        }
-      ]
-    }
-  }
-
-  tags = {
-    Environment = "Development"
-    Project     = "Example"
-  }
-}
-
 module "blog_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.2.0"
